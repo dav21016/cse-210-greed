@@ -1,0 +1,5 @@
+C:\Users\logan\Documents\GitHub\cse-210-greed\obj\Debug\net6.0\cse-210-greed.csproj.AssemblyReference.cache
+C:\Users\logan\Documents\GitHub\cse-210-greed\obj\Debug\net6.0\cse-210-greed.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\logan\Documents\GitHub\cse-210-greed\obj\Debug\net6.0\cse-210-greed.AssemblyInfoInputs.cache
+C:\Users\logan\Documents\GitHub\cse-210-greed\obj\Debug\net6.0\cse-210-greed.AssemblyInfo.cs
+C:\Users\logan\Documents\GitHub\cse-210-greed\obj\Debug\net6.0\cse-210-greed.csproj.CoreCompileInputs.cache
