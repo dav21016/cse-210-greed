@@ -17,7 +17,7 @@ namespace unit04_greed.Game.Casting
         /// </summary>
         public class Artifact:Actor{
             private int score = 0;
-
+        
         
 
 

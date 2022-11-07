@@ -93,7 +93,7 @@ namespace unit04_greed.Game.Directing
                 if (robot.GetPosition().Equals(actor.GetPosition()))
                 {
                     Artifact artifact = (Artifact) actor;
-                    score += artifact.GetScore() ?? "";
+                    score += artifact.GetScore();
                     banner.SetText($"Score: {score.ToString()}");
 
                     int x = random.Next(1, 60);
