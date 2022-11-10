@@ -1,58 +1,33 @@
-using System.Collections.Generic;
-using System.IO;
-using System;
-
-namespace unit04_greed.Game.Casting
-{
-    // TODO: Implement the Artifact class here
-
-    // 1) Add the class declaration. Use the following class comment. Make sure you
-    //    inherit from the Actor class.
-
+namespace Unit04.Game.Casting{
         /// <summary>
         /// <para>An item of cultural or historical interest.</para>
         /// <para>
-        /// The responsibility of an Artifact is to provide a message about itself.
+        /// The responsibility of an Artifact is to hold it's value.
         /// </para>
         /// </summary>
-        public class Artifact:Actor{
-            private int score = 0;
+    class Artifact : Actor{ 
+        private int _value;
 
-        
-
-
-    // 2) Create the class constructor. Use the following method comment.
-        
         /// <summary>
         /// Constructs a new instance of Artifact.
         /// </summary>
-            public Artifact(){
-
-            }
-       
-
-    // 3) Create the GetMessage() method. Use the following method comment.
-        
-        /// <summary>
-        /// Gets the artifact's message.
-        /// </summary>
-        /// <returns>The message as a string.</returns>
-            public int GetScore(){
-                
-                return score;
-
-            }
-        
-
-    // 4) Create the SetMessage(string message) method. Use the following method comment.
-        
-        /// <summary>
-        /// Sets the artifact's message to the given value.
-        /// </summary>
-        /// <param name="message">The given message.</param>
-            public void SetScore(int score){
-                this.score = score;
-
-            }
+        public Artifact(){
         }
+
+        /// <summary>
+        /// Sets the value of the artifact. Should be either +1 or -1, declared in Director when all artifacts are constructed.
+        /// </summary>
+        public void SetValue(int value)
+        {
+            _value = value;
+        }
+        
+        /// <summary>
+        /// Returns the value stored. 
+        /// </summary>
+        public int GetValue()
+        {
+            return _value;
+        }
+    }
 }

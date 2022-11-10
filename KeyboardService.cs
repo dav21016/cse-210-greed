@@ -1,8 +1,8 @@
 using Raylib_cs;
-using unit04_greed.Game.Casting;
+using Unit04.Game.Casting;
 
 
-namespace unit04_greed.Game.Services
+namespace Unit04.Game.Services
 {
     /// <summary>
     /// <para>Detects player input.</para>
@@ -13,7 +13,7 @@ namespace unit04_greed.Game.Services
     /// </summary>
     public class KeyboardService
     {
-        private int cellSize = 15;
+        private int _cellSize = 15;
 
         /// <summary>
         /// Constructs a new instance of KeyboardService using the given cell size.
@@ -21,7 +21,7 @@ namespace unit04_greed.Game.Services
         /// <param name="cellSize">The cell size (in pixels).</param>
         public KeyboardService(int cellSize)
         {
-            this.cellSize = cellSize;
+            this._cellSize = cellSize;
         }
 
         /// <summary>
@@ -43,26 +43,18 @@ namespace unit04_greed.Game.Services
                 dx = 1;
             }
 
-            //if (Raylib.IsKeyDown(KeyboardKey.KEY_UP)){dy = -1;}
-            //if (Raylib.IsKeyDown(KeyboardKey.KEY_DOWN)){dy = 1;}
+            // if (Raylib.IsKeyDown(KeyboardKey.KEY_UP))
+            // {
+            //     dy = -1;
+            // }
+
+            // if (Raylib.IsKeyDown(KeyboardKey.KEY_DOWN))
+            // {
+            //     dy = 1;
+            // }
 
             Point direction = new Point(dx, dy);
-            direction = direction.Scale(cellSize);
-
-            return direction;
-        }
-
-        /// <summary>
-        /// Keeps Artifacts in motion.
-        /// </summary>
-        /// <returns>The direction as an instance of Point.</returns>
-        public Point MoveArtifact()
-        {
-            int dx = 0;
-            int dy = 1;
-
-            Point direction = new Point(dx, dy);
-            direction = direction.Scale(cellSize);
+            direction = direction.Scale(_cellSize);
 
             return direction;
         }

@@ -1,16 +1,9 @@
 using System.Collections.Generic;
-using unit04_greed.Game.Casting;
-using unit04_greed.Game.Services;
-using System;
-
-using System.IO;
-using System.Linq;
-
-using unit04_greed.Game.Directing;
+using Unit04.Game.Casting;
+using Unit04.Game.Services;
 
 
-
-namespace unit04_greed.Game.Directing
+namespace Unit04.Game.Directing
 {
     /// <summary>
     /// <para>A person who directs the game.</para>
@@ -20,9 +13,9 @@ namespace unit04_greed.Game.Directing
     /// </summary>
     public class Director
     {
-        public int score = 0;
-        private KeyboardService keyboardService = null;
-        private VideoService videoService = null;
+        private KeyboardService _keyboardService = null;
+        private VideoService _videoService = null;
+        private int _score = 0;
 
         /// <summary>
         /// Constructs a new instance of Director using the given KeyboardService and VideoService.
@@ -31,8 +24,8 @@ namespace unit04_greed.Game.Directing
         /// <param name="videoService">The given VideoService.</param>
         public Director(KeyboardService keyboardService, VideoService videoService)
         {
-            this.keyboardService = keyboardService;
-            this.videoService = videoService;
+            this._keyboardService = keyboardService;
+            this._videoService = videoService;
         }
 
         /// <summary>
@@ -40,15 +33,15 @@ namespace unit04_greed.Game.Directing
         /// </summary>
         /// <param name="cast">The given cast.</param>
         public void StartGame(Cast cast)
-        { 
-            videoService.OpenWindow();
-            while (videoService.IsWindowOpen())
+        {
+            _videoService.OpenWindow();
+            while (_videoService.IsWindowOpen())
             {
                 GetInputs(cast);
                 DoUpdates(cast);
                 DoOutputs(cast);
             }
-            videoService.CloseWindow();
+            _videoService.CloseWindow();
         }
 
         /// <summary>
@@ -57,17 +50,9 @@ namespace unit04_greed.Game.Directing
         /// <param name="cast">The given cast.</param>
         private void GetInputs(Cast cast)
         {
-            List<Actor> artifacts = cast.GetActors("artifacts");
-            foreach (Actor actor in artifacts){
-                Point artifactvelocity = keyboardService.MoveArtifact();
-                actor.SetVelocity(artifactvelocity);
-                int maxX = videoService.GetWidth();
-                int maxY = videoService.GetHeight();
-                actor.MoveNext(maxX, maxY);
-            }
             Actor robot = cast.GetFirstActor("robot");
-            Point velocity = keyboardService.GetDirection();
-            robot.SetVelocity(velocity); 
+            Point velocity = _keyboardService.GetDirection();
+            robot.SetVelocity(velocity);     
         }
 
         /// <summary>
@@ -76,34 +61,37 @@ namespace unit04_greed.Game.Directing
         /// <param name="cast">The given cast.</param>
         private void DoUpdates(Cast cast)
         {
-
             Actor banner = cast.GetFirstActor("banner");
             Actor robot = cast.GetFirstActor("robot");
             List<Actor> artifacts = cast.GetActors("artifacts");
 
-            banner.SetText($"Score: {score.ToString()}");
-            int maxX = videoService.GetWidth();
-            int maxY = videoService.GetHeight();
+            banner.SetText("");
+            int maxX = _videoService.GetWidth();
+            int maxY = _videoService.GetHeight();
             robot.MoveNext(maxX, maxY);
 
-            Random random = new Random();
             foreach (Actor actor in artifacts)
             {
-                
+                Artifact artifact = (Artifact) actor;
                 if (robot.GetPosition().Equals(actor.GetPosition()))
                 {
-                    Artifact artifact = (Artifact) actor;
-                    score += artifact.GetScore();
-                    banner.SetText($"Score: {score.ToString()}");
+                    _score += artifact.GetValue();
 
+                    Random random = new Random();
                     int x = random.Next(1, 60);
                     int y = 0;
                     Point position = new Point(x, y);
-                    position = position.Scale(15);
-
+                    position = position.Scale(30);
                     artifact.SetPosition(position);
                 }
+                banner.SetText($"Points: {_score}");
             } 
+            foreach (Actor artifact in artifacts)
+            {
+                Point artifactVelocity = new Point(0,3);
+                artifact.SetVelocity(artifactVelocity);
+                artifact.MoveNext(maxX,maxY);
+            }
         }
 
         /// <summary>
@@ -113,9 +101,9 @@ namespace unit04_greed.Game.Directing
         public void DoOutputs(Cast cast)
         {
             List<Actor> actors = cast.GetAllActors();
-            videoService.ClearBuffer();
-            videoService.DrawActors(actors);
-            videoService.FlushBuffer();
+            _videoService.ClearBuffer();
+            _videoService.DrawActors(actors);
+            _videoService.FlushBuffer();
         }
 
     }
